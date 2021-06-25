@@ -1,0 +1,4 @@
+/home/jan/Pulpit/zad5_3-jmeko1214/build/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/rebuild_cache.dir
+/home/jan/Pulpit/zad5_3-jmeko1214/build/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/edit_cache.dir
+/home/jan/Pulpit/zad5_3-jmeko1214/build/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/boo.dir
+/home/jan/Pulpit/zad5_3-jmeko1214/build/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/foo.dir

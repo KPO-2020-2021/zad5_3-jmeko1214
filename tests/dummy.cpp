@@ -9,9 +9,3 @@ TEST_CASE("complicated integration tests could be here 11")
   Dummy d;
   CHECK(d.doSomething() == true);
 }
-
-TEST_CASE("complicated integration tests could be here 22")
-{
-  Dummy d;
-  CHECK(d.doSomething() != true);
-}

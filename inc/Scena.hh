@@ -57,15 +57,9 @@ class Scena {
     void Dodaj_przeszkode();
 
 /*!
- * \brief Metoda odpowiada za liczenie bezpiecznego promienia
- *  obrysu Drona i przeszkody
- */
-    void Promien();
-
-/*!
 * \brief Metoda odpowiada za sprawdzenie czy jest kolizja
 */
-    bool Czy_kolizja();
+    void Czy_kolizja();
 
 /*!
  * \brief Destruktor, usuwa dno oraz drony

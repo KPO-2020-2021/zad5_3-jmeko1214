@@ -20,7 +20,7 @@ Dron::Dron(int id, PzG::LaczeDoGNUPlota &Lacze, Wektor3D polozenie) : Lacze(Lacz
 
 }
 
-bool Dron::Promien_drona()//double prom)
+double Dron::Promien_drona()//double prom)
 {
     double ox, oy;
     double prom;

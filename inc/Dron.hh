@@ -28,7 +28,6 @@ class Dron {
     * \brief Konstruktor bezparametryczny klasy Dron
     */
     Dron();
-    bool Promien_drona();//double prom);
     
     /*!
     * \brief Konstruktor parametryczny klasy Dron
@@ -59,6 +58,11 @@ class Dron {
     * \brief Metoda odpowiada za rysowanie trasy Drona
     */
     void Trasa(double kat, double droga);
+
+    /*!
+    * \brief Metoda odpowiada za wyliczenie promienia Drona
+    */
+    double Promien_drona();
     
     /*!
     * \brief Metoda odpowiada za zapis wspolrzednych Drona do pliku

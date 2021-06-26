@@ -13,8 +13,6 @@ Scena::Scena()
     double polozenie2[3] = {100.0, 25.0, 10.0};     //polozenie srodka drugiego drona
     Wektor3D w1(polozenie);
     Wektor3D w2(polozenie2);
-    //wysokosc[0] = polozenie[2];
-    //wysokosc[1] = polozenie2[2];
 
     Lacze.DodajNazwePliku("../datasets/bryly_wzorcowe/plaszczyzna.dat",PzG::RR_Ciagly,2);
     Lacze.ZmienTrybRys(PzG::TR_3D);
@@ -95,7 +93,7 @@ void Scena::Steruj_dronem()
     {
         drony[numer]->Lot_w_gore(1);
         drony[numer]->Zapisz_do_pliku();
-        Czy_kolizja();
+        
         Lacze.Rysuj(); 
     } 
     std::cout << "  Zmiana orientacji ..." << std::endl << std::endl;
@@ -113,7 +111,7 @@ void Scena::Steruj_dronem()
         drony[numer]->Zapisz_do_pliku();
         Lacze.Rysuj();
     }
-    
+    Czy_kolizja();
     std::cout << "  Opadanie ..." << std::endl << std::endl;
     for(int i=0; i<200; i++)
     {
@@ -123,7 +121,6 @@ void Scena::Steruj_dronem()
     }
     Lacze.UsunOstatniaNazwe();
     Lacze.Rysuj();
-    //Promien();
 }
 
 /*!
@@ -163,8 +160,7 @@ void Scena::Dodaj_przeszkode()
         {
             przeszkody.push_front(std::make_shared<Gora_ostra>(w3, OX, OY, OZ, "../datasets/przeszkody/gora_ostra.dat"));
             Lacze.DodajNazwePliku("../datasets/przeszkody/gora_ostra.dat", PzG::RR_Ciagly, 2);
-            promien_bryla[0] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;     
-            std::cout << promien_bryla[0] <<std::endl;
+            promien_bryla[0] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;  
             break;
         }
         case 2:     //dodanie gory z grania
@@ -198,26 +194,30 @@ void Scena::Dodaj_przeszkode()
 }
 
 /*!
- * \brief Metoda odpowiada za liczenie bezpiecznego promienia
- *  obrysu Drona i przeszkody
- */
-void Scena::Promien()
-{
-    std::cout << promien_bryla[0] << std::endl;
-
-}
-
-/*!
-* \brief Metoda odpowiada za sprawdzenie czy jest kolizja
+* \brief Metoda odpowiada za sprawdzenie czy jest kolizja.
+*  
+*  Metoda liczy odleglosc srodka drona od srodka przeszkody
+*  i zwraca true lub false. 
+*  Promien = przekatna bryly + zapas (5.0)
 */
-bool Scena::Czy_kolizja()
+void Scena::Czy_kolizja()
 {
-    double pr;
-    pr=drony[numer]->Promien_drona();
+    double dron;//, obiekt[3];  //zmienne do przechowania promienia aktywnego drona
+    double spr1, spr2, spr3; //zmienne pomocnicze do liczenia sumy promieni bryly i drona
+    double odleglosc
     
-    std::cout << pr << std::endl;
+    dron=drony[numer]->Promien_drona();
+    spr1 = dron + promien_bryla[0];
+    spr2 = dron + promien_bryla[1];
+    spr3 = dron + promien_bryla[2];
 
-    return pr;
+    
+    std::cout << dron << std::endl;
+    std::cout << spr1 << std::endl;
+    std::cout << spr2 << std::endl;
+    std::cout << spr3 << std::endl;
+
+
 }
 
 /*!

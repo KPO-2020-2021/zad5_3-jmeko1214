@@ -10,6 +10,7 @@
 #include "Prostopadloscian.hh"
 #include <iostream>
 #include <memory>
+#include <cmath>
 #include <list>
 
 
@@ -26,7 +27,7 @@ class Scena {
     Dron *drony[2];     //tablica dronow
     int numer;          //numer drona
     double kat;
-    double wysokosc; //zmienna pomocnicza do wykrywania kolizji drona
+    double promien_bryla[3];    //zmienna przechowuje promien przeszkody
     std::list<std::shared_ptr<BrylaGeometryczna>> przeszkody;    //lista przeszkod
 
     public:
@@ -46,11 +47,6 @@ class Scena {
     bool Wybor_drona();
 
 /*!
- * \brief Metoda odpowiada za ustawienie drona aktywnego
- */
-    //void Ruch_dronem();
-
-/*!
  * \brief Metoda odpowiada za ruch Drona
  */
     void Steruj_dronem();
@@ -61,9 +57,15 @@ class Scena {
     void Dodaj_przeszkode();
 
 /*!
+ * \brief Metoda odpowiada za liczenie bezpiecznego promienia
+ *  obrysu Drona i przeszkody
+ */
+    void Promien();
+
+/*!
 * \brief Metoda odpowiada za sprawdzenie czy jest kolizja
 */
-    bool Czy_kolizja();//double wysokosc);
+    bool Czy_kolizja();
 
 /*!
  * \brief Destruktor, usuwa dno oraz drony

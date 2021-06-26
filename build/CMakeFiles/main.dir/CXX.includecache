@@ -31,6 +31,8 @@ lacze_do_gnuplota.hh
 ../inc/lacze_do_gnuplota.hh
 string.h
 -
+cmath
+-
 unistd.h
 -
 
@@ -142,6 +144,8 @@ Prostopadloscian.hh
 iostream
 -
 memory
+-
+cmath
 -
 list
 -

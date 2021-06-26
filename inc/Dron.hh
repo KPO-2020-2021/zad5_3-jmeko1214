@@ -6,6 +6,7 @@
 #include "BrylaGeometryczna.hh"
 #include "lacze_do_gnuplota.hh"
 #include <string.h>
+#include <cmath>
 #include <unistd.h>
 
 #define CZEKAJ 5000
@@ -16,6 +17,8 @@ class Dron {
     Prostopadloscian *korpus;
     Wektor3D droga;
     Macierz3x3 obrot;
+    double promien;     //przechowuje promien drona
+    double wymiary[2];  //przechowuje wymiery x,y drona
     double kat;
     int id;
     char os;
@@ -25,6 +28,7 @@ class Dron {
     * \brief Konstruktor bezparametryczny klasy Dron
     */
     Dron();
+    bool Promien_drona();//double prom);
     
     /*!
     * \brief Konstruktor parametryczny klasy Dron

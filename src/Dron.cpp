@@ -7,11 +7,28 @@ Dron::Dron(int id, PzG::LaczeDoGNUPlota &Lacze, Wektor3D polozenie) : Lacze(Lacz
 {
     kat = 0;
     this->id = id;
-    korpus = new Prostopadloscian(polozenie,50, 40, 40, "../datasets/korpus" 
+    double x,y,z;
+    x=50;
+    y=40;
+    z=40;
+    korpus = new Prostopadloscian(polozenie, x, y, z, "../datasets/korpus" 
                                   + std::to_string(id+1) + ".dat");
     korpus->Przesuniecie(polozenie);
     this->droga = this-> droga + polozenie;
+    wymiary[0]=x;
+    wymiary[1]=y;
 
+}
+
+bool Dron::Promien_drona()//double prom)
+{
+    double ox, oy;
+    double prom;
+    ox = (wymiary[0]/2)*(wymiary[0]/2);
+    oy = (wymiary[1]/2)*(wymiary[1]/2);
+    prom = sqrt((ox+oy)) + 5.0;
+    this->promien = prom;
+    return promien;
 }
 
 /*!

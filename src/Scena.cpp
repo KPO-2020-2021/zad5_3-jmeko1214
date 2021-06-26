@@ -13,7 +13,8 @@ Scena::Scena()
     double polozenie2[3] = {100.0, 25.0, 10.0};     //polozenie srodka drugiego drona
     Wektor3D w1(polozenie);
     Wektor3D w2(polozenie2);
-    wysokosc = polozenie[2];
+    //wysokosc[0] = polozenie[2];
+    //wysokosc[1] = polozenie2[2];
 
     Lacze.DodajNazwePliku("../datasets/bryly_wzorcowe/plaszczyzna.dat",PzG::RR_Ciagly,2);
     Lacze.ZmienTrybRys(PzG::TR_3D);
@@ -78,7 +79,6 @@ bool Scena::Wybor_drona()
  */
 void Scena::Steruj_dronem()
 {
-    //Dron dron;
     numer = this->numer-1;
     double droga;
     double kat;
@@ -95,7 +95,7 @@ void Scena::Steruj_dronem()
     {
         drony[numer]->Lot_w_gore(1);
         drony[numer]->Zapisz_do_pliku();
-        //Czy_kolizja(wysokosc);
+        Czy_kolizja();
         Lacze.Rysuj(); 
     } 
     std::cout << "  Zmiana orientacji ..." << std::endl << std::endl;
@@ -123,6 +123,7 @@ void Scena::Steruj_dronem()
     }
     Lacze.UsunOstatniaNazwe();
     Lacze.Rysuj();
+    //Promien();
 }
 
 /*!
@@ -162,18 +163,22 @@ void Scena::Dodaj_przeszkode()
         {
             przeszkody.push_front(std::make_shared<Gora_ostra>(w3, OX, OY, OZ, "../datasets/przeszkody/gora_ostra.dat"));
             Lacze.DodajNazwePliku("../datasets/przeszkody/gora_ostra.dat", PzG::RR_Ciagly, 2);
+            promien_bryla[0] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;     
+            std::cout << promien_bryla[0] <<std::endl;
             break;
         }
         case 2:     //dodanie gory z grania
         {            
             przeszkody.push_front(std::make_shared<Gora_z_grania>(w3, OX, OY, OZ, "../datasets/przeszkody/gora_z_grania.dat"));
             Lacze.DodajNazwePliku("../datasets/przeszkody/gora_z_grania.dat", PzG::RR_Ciagly, 2);
+            promien_bryla[1] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;
             break;
         }
         case 3:     //dodanie plaskowyzu
         {            
             przeszkody.push_front(std::make_shared<Plaskowyz>(w3, OX, OY, OZ, "../datasets/przeszkody/plaskowyz.dat"));
             Lacze.DodajNazwePliku("../datasets/przeszkody/plaskowyz.dat", PzG::RR_Ciagly, 2);
+            promien_bryla[2] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;
             break;
         } 
         default:
@@ -193,15 +198,26 @@ void Scena::Dodaj_przeszkode()
 }
 
 /*!
+ * \brief Metoda odpowiada za liczenie bezpiecznego promienia
+ *  obrysu Drona i przeszkody
+ */
+void Scena::Promien()
+{
+    std::cout << promien_bryla[0] << std::endl;
+
+}
+
+/*!
 * \brief Metoda odpowiada za sprawdzenie czy jest kolizja
 */
-bool Scena::Czy_kolizja()//double wysokosc)
+bool Scena::Czy_kolizja()
 {
-    //wysokosc = 50;
+    double pr;
+    pr=drony[numer]->Promien_drona();
     
-    std::cout << wysokosc << std::endl;
+    std::cout << pr << std::endl;
 
-    return wysokosc;
+    return pr;
 }
 
 /*!

@@ -76,6 +76,8 @@ int main() {
   wektor.Ilosc_wektorow();
   Menu_wyswietl();
 
+  //scena.Promien();
+
   while(opcja!='k')
   {
     cout<<endl;

@@ -74,7 +74,6 @@ int main() {
   cout<<" Wynik jest wyswietlany w gnuplocie oraz zapisywany do pliku."<<endl<<endl;
   
   wektor.Ilosc_wektorow();
-
   Menu_wyswietl();
 
   while(opcja!='k')
@@ -93,7 +92,8 @@ int main() {
       }
       case 'p':
       {
-        scena.Ruch_dronem();
+        scena.Steruj_dronem();
+
         break;
       }
       case 'd':

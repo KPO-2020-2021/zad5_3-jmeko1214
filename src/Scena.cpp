@@ -13,6 +13,7 @@ Scena::Scena()
     double polozenie2[3] = {100.0, 25.0, 10.0};     //polozenie srodka drugiego drona
     Wektor3D w1(polozenie);
     Wektor3D w2(polozenie2);
+    wysokosc = polozenie[2];
 
     Lacze.DodajNazwePliku("../datasets/bryly_wzorcowe/plaszczyzna.dat",PzG::RR_Ciagly,2);
     Lacze.ZmienTrybRys(PzG::TR_3D);
@@ -73,21 +74,55 @@ bool Scena::Wybor_drona()
 }
 
 /*!
- * \brief Metoda odpowiada za ustawienie, ktorym
- *   Dronem realizowac ruch
+ * \brief Metoda odpowiada za sterowanie dronem
  */
-void Scena::Ruch_dronem()
+void Scena::Steruj_dronem()
 {
-    int numer;
-    numer = this->numer;
-    if(numer==1)
+    //Dron dron;
+    numer = this->numer-1;
+    double droga;
+    double kat;
+    std::cout << "  Podaj kierunek lotu (kat w stopniach)> ";
+    std::cin >> kat;
+    std::cout << "\t\t     Podaj dlugosc lotu> ";
+    std::cin >> droga;
+    std::cout << std::endl;
+    Lacze.DodajNazwePliku("../datasets/trasa_przelotu.dat", PzG::RR_Ciagly, 2);
+    drony[numer]->Trasa(kat, droga);
+    std::cout << "  Realizacja przelotu ..." << std::endl << std::endl;
+    std::cout << "  Wznoszenie ..." << std::endl << std::endl;
+    for(int i=0; i<200; i++)
     {
-        drony[0]->Steruj_dronem();
-    }
-    if(numer==2)
+        drony[numer]->Lot_w_gore(1);
+        drony[numer]->Zapisz_do_pliku();
+        //Czy_kolizja(wysokosc);
+        Lacze.Rysuj(); 
+    } 
+    std::cout << "  Zmiana orientacji ..." << std::endl << std::endl;
+    for(int i=0; i<kat; i++)
     {
-        drony[1]->Steruj_dronem();
+        drony[numer]->Obrot(1);
+        drony[numer]->Zapisz_do_pliku();
+        Lacze.Rysuj();
     }
+    std::cout << "  Lot do przodu ..." << std::endl << std::endl;
+    this->kat=this->kat + kat;
+    for(int i=0; i<droga; i++)
+    {
+        drony[numer]->Przesuniecie(1, kat);
+        drony[numer]->Zapisz_do_pliku();
+        Lacze.Rysuj();
+    }
+    
+    std::cout << "  Opadanie ..." << std::endl << std::endl;
+    for(int i=0; i<200; i++)
+    {
+        drony[numer]->Lot_w_dol(-1);
+        drony[numer]->Zapisz_do_pliku();
+        Lacze.Rysuj();
+    }
+    Lacze.UsunOstatniaNazwe();
+    Lacze.Rysuj();
 }
 
 /*!
@@ -155,6 +190,18 @@ void Scena::Dodaj_przeszkode()
     Lacze.Rysuj();
     std::cout << std::endl;
     std::cout << "  Element dodany do sceny. " << std::endl;
+}
+
+/*!
+* \brief Metoda odpowiada za sprawdzenie czy jest kolizja
+*/
+bool Scena::Czy_kolizja()//double wysokosc)
+{
+    //wysokosc = 50;
+    
+    std::cout << wysokosc << std::endl;
+
+    return wysokosc;
 }
 
 /*!

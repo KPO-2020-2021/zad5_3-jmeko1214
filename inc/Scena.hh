@@ -25,6 +25,8 @@ class Scena {
     Plaszczyzna *dno;
     Dron *drony[2];     //tablica dronow
     int numer;          //numer drona
+    double kat;
+    double wysokosc; //zmienna pomocnicza do wykrywania kolizji drona
     std::list<std::shared_ptr<BrylaGeometryczna>> przeszkody;    //lista przeszkod
 
     public:
@@ -46,12 +48,22 @@ class Scena {
 /*!
  * \brief Metoda odpowiada za ustawienie drona aktywnego
  */
-    void Ruch_dronem();
+    //void Ruch_dronem();
+
+/*!
+ * \brief Metoda odpowiada za ruch Drona
+ */
+    void Steruj_dronem();
 
 /*!
  * \brief Metoda odpowiada za dodawanie przeszkod do sceny
  */
     void Dodaj_przeszkode();
+
+/*!
+* \brief Metoda odpowiada za sprawdzenie czy jest kolizja
+*/
+    bool Czy_kolizja();//double wysokosc);
 
 /*!
  * \brief Destruktor, usuwa dno oraz drony

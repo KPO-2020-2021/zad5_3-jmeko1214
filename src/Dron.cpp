@@ -11,6 +11,7 @@ Dron::Dron(int id, PzG::LaczeDoGNUPlota &Lacze, Wektor3D polozenie) : Lacze(Lacz
                                   + std::to_string(id+1) + ".dat");
     korpus->Przesuniecie(polozenie);
     this->droga = this-> droga + polozenie;
+
 }
 
 /*!
@@ -50,66 +51,17 @@ void Dron::Obrot(double kat)
 /*!
  * \brief Metoda odpowiada za przesuniecie Drona
  */
-void Dron::Przesuniecie(double droga)
+void Dron::Przesuniecie(double droga, double kat)
 {
     Wektor3D przesun;
     Wektor3D lot;
     przesun[0] = droga;
+    //this->kat = this->kat + kat;
     
     os = 'z';
-    lot = MacierzObrotu(this->kat, os) * przesun;
+    lot = MacierzObrotu(kat, os) * przesun;
     korpus->Przesuniecie(lot);
     usleep(CZEKAJ);
-}
-
-/*!
- * \brief Metoda odpowiada za sterowanie dronem
- */
-void Dron::Steruj_dronem()
-{
-    double droga;
-    double kat;
-    std::cout << "  Podaj kierunek lotu (kat w stopniach)> ";
-    std::cin >> kat;
-    std::cout << "\t\t     Podaj dlugosc lotu> ";
-    std::cin >> droga;
-    std::cout << std::endl;
-    Lacze.DodajNazwePliku("../datasets/trasa_przelotu.dat", PzG::RR_Ciagly, 2);
-    Trasa(kat, droga);
-    std::cout << "  Realizacja przelotu ..." << std::endl << std::endl;
-    std::cout << "  Wznoszenie ..." << std::endl << std::endl;
-    for(int i=0; i<200; i++)
-    {
-        Lot_w_gore(1);
-        Zapisz_do_pliku();
-        
-        Lacze.Rysuj(); 
-    } 
-    std::cout << "  Zmiana orientacji ..." << std::endl << std::endl;
-    for(int i=0; i<kat; i++)
-    {
-        Obrot(1);
-        Zapisz_do_pliku();
-        Lacze.Rysuj();
-    }
-    std::cout << "  Lot do przodu ..." << std::endl << std::endl;
-    this->kat=this->kat + kat;
-    for(int i=0; i<droga; i++)
-    {
-        Przesuniecie(1);
-        Zapisz_do_pliku();
-        Lacze.Rysuj();
-    }
-    
-    std::cout << "  Opadanie ..." << std::endl << std::endl;
-    for(int i=0; i<200; i++)
-    {
-        Lot_w_dol(-1);
-        Zapisz_do_pliku();
-        Lacze.Rysuj();
-    }
-    Lacze.UsunOstatniaNazwe();
-    Lacze.Rysuj();
 }
 
 /*!

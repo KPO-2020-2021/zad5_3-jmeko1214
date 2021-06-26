@@ -49,12 +49,7 @@ class Dron {
     /*!
     * \brief Metoda odpowiada za przesuniecie Drona
     */
-    void Przesuniecie(double przesun);
-    
-    /*!
-    * \brief Metoda odpowiada za ruch Drona
-    */
-    void Steruj_dronem();
+    void Przesuniecie(double przesun, double kat);
     
     /*!
     * \brief Metoda odpowiada za rysowanie trasy Drona

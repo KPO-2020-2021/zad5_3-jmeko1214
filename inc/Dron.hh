@@ -61,9 +61,13 @@ class Dron {
     void Trasa(double kat, double droga);
 
     /*!
-    * \brief Metoda odpowiada za zwrocenie wsporzednych aktywnego Drona
+    * \brief Metoda odpowiada za zwrocenie wsporzednej X aktywnego Drona
     */
     double Wspolrzedna_X();
+
+    /*!
+    * \brief Metoda odpowiada za zwrocenie wsporzednej Y aktywnego Drona
+    */
     double Wspolrzedna_Y();
 
     /*!

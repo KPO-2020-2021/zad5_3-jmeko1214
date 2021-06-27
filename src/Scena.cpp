@@ -90,7 +90,7 @@ void Scena::Steruj_dronem()
     drony[numer]->Trasa(kat, droga);
     std::cout << "  Realizacja przelotu ..." << std::endl << std::endl;
     std::cout << "  Wznoszenie ..." << std::endl << std::endl;
-    for(int i=0; i<200; i++)
+    for(int i=0; i<300; i++)
     {
         drony[numer]->Lot_w_gore(1);
         drony[numer]->Zapisz_do_pliku();
@@ -125,7 +125,7 @@ void Scena::Steruj_dronem()
         }
     }
     std::cout << "  Opadanie ..." << std::endl << std::endl;
-    for(int i=0; i<200; i++)
+    for(int i=0; i<300; i++)
     {
         drony[numer]->Lot_w_dol(-1);
         drony[numer]->Zapisz_do_pliku();

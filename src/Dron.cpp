@@ -91,7 +91,7 @@ void Dron::Trasa(double kat, double droga)
     nastepny = korpus->zwroc_srodek();
     nastepny[2] = 0;
     trasa.push_back(nastepny);
-    nastepny[2] = 200;
+    nastepny[2] = 300;
     trasa.push_back(nastepny);
     double radiany;
     radiany = kat * PI / 180;
@@ -114,19 +114,20 @@ void Dron::Trasa(double kat, double droga)
 }
 
 /*!
-    * \brief Metoda odpowiada za zwrocenie wsporzednych aktywnego Drona
-    */
-    /*double Dron::Wspolrzedne(Wektor srodek[2])
-    {
-        //this->srodek[2];
-        srodek[0] = wspolrzedne[0];
-        srodek[1] = wspolrzedne[1];
-        return srodek;
-    }*/
-    double Dron::Wspolrzedna_X()
-    {return wspolrzedne[0];}
-    double Dron::Wspolrzedna_Y()
-    {return wspolrzedne[1];}
+ * \brief Metoda odpowiada za zwrocenie wsporzednej X aktywnego Drona
+ */
+double Dron::Wspolrzedna_X()
+{
+    return wspolrzedne[0];
+}
+
+/*!
+ * \brief Metoda odpowiada za zwrocenie wsporzednej Y aktywnego Drona
+ */
+double Dron::Wspolrzedna_Y()
+{
+    return wspolrzedne[1];
+}
 
 /*!
  * \brief Metoda odpowiada za zapis Drona do pliku

@@ -27,6 +27,7 @@ class Scena {
     Dron *drony[2];     //tablica dronow
     int numer;          //numer drona
     double kat;
+    double srodek1[2], srodek2[2], srodek3[2];  //zmienne przechowuja srodki poszczegolnych przeszkod
     double promien_bryla[3];    //zmienna przechowuje promien przeszkody
     std::list<std::shared_ptr<BrylaGeometryczna>> przeszkody;    //lista przeszkod
 

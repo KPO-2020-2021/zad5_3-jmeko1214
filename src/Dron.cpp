@@ -97,6 +97,8 @@ void Dron::Trasa(double kat, double droga)
     radiany = kat * PI / 180;
     nastepny[0] = nastepny[0] + droga * cos(radiany);
     nastepny[1] = nastepny[1] + droga * sin(radiany);
+    wspolrzedne[0] = nastepny[0];
+    wspolrzedne[1] = nastepny[1];
     trasa.push_back(nastepny);
     nastepny[2] = 0;
     trasa.push_back(nastepny);
@@ -110,6 +112,21 @@ void Dron::Trasa(double kat, double droga)
     }
     plik.close();
 }
+
+/*!
+    * \brief Metoda odpowiada za zwrocenie wsporzednych aktywnego Drona
+    */
+    /*double Dron::Wspolrzedne(Wektor srodek[2])
+    {
+        //this->srodek[2];
+        srodek[0] = wspolrzedne[0];
+        srodek[1] = wspolrzedne[1];
+        return srodek;
+    }*/
+    double Dron::Wspolrzedna_X()
+    {return wspolrzedne[0];}
+    double Dron::Wspolrzedna_Y()
+    {return wspolrzedne[1];}
 
 /*!
  * \brief Metoda odpowiada za zapis Drona do pliku

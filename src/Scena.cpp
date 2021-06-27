@@ -160,7 +160,9 @@ void Scena::Dodaj_przeszkode()
         {
             przeszkody.push_front(std::make_shared<Gora_ostra>(w3, OX, OY, OZ, "../datasets/przeszkody/gora_ostra.dat"));
             Lacze.DodajNazwePliku("../datasets/przeszkody/gora_ostra.dat", PzG::RR_Ciagly, 2);
-            promien_bryla[0] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;  
+            promien_bryla[0] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;
+            srodek1[0] = srodek[0];
+            srodek1[1] = srodek[1];
             break;
         }
         case 2:     //dodanie gory z grania
@@ -168,6 +170,8 @@ void Scena::Dodaj_przeszkode()
             przeszkody.push_front(std::make_shared<Gora_z_grania>(w3, OX, OY, OZ, "../datasets/przeszkody/gora_z_grania.dat"));
             Lacze.DodajNazwePliku("../datasets/przeszkody/gora_z_grania.dat", PzG::RR_Ciagly, 2);
             promien_bryla[1] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;
+            srodek2[0] = srodek[0];
+            srodek2[1] = srodek[1];
             break;
         }
         case 3:     //dodanie plaskowyzu
@@ -175,6 +179,8 @@ void Scena::Dodaj_przeszkode()
             przeszkody.push_front(std::make_shared<Plaskowyz>(w3, OX, OY, OZ, "../datasets/przeszkody/plaskowyz.dat"));
             Lacze.DodajNazwePliku("../datasets/przeszkody/plaskowyz.dat", PzG::RR_Ciagly, 2);
             promien_bryla[2] = sqrt((OX*OX/4+OY*OY/4)) + 5.0;
+            srodek3[0] = srodek[0];
+            srodek3[1] = srodek[1];
             break;
         } 
         default:
@@ -202,20 +208,50 @@ void Scena::Dodaj_przeszkode()
 */
 void Scena::Czy_kolizja()
 {
-    double dron;//, obiekt[3];  //zmienne do przechowania promienia aktywnego drona
+    double dron;             //zmienne do przechowania promienia aktywnego drona
     double spr1, spr2, spr3; //zmienne pomocnicze do liczenia sumy promieni bryly i drona
-    double odleglosc
+    double odleglosc[3];     //przechowuje odleglosc pomiedzy srodkiem drona i bryly       
+    double srodek_d[2];      //przechowuje wspolrzedne srodka drona
+    double odl_XY[3];        //zmienne pomocnicze, przechowuja odleglosc X i Y podniesione do kwadratu
+    srodek_d[0] = drony[numer]->Wspolrzedna_X();
+    srodek_d[1] = drony[numer]->Wspolrzedna_Y();
+
+    odl_XY[0] = (srodek_d[0]-srodek1[0])*(srodek_d[0]-srodek1[0])+(srodek_d[1]-srodek1[1])*(srodek_d[1]-srodek1[1]);
+    odl_XY[1] = (srodek_d[0]-srodek2[0])*(srodek_d[0]-srodek2[0])+(srodek_d[1]-srodek2[1])*(srodek_d[1]-srodek2[1]);
+    odl_XY[2] = (srodek_d[0]-srodek3[0])*(srodek_d[0]-srodek3[0])+(srodek_d[1]-srodek3[1])*(srodek_d[1]-srodek3[1]);
+        
+    odleglosc[0] = sqrt(odl_XY[0]);
+    odleglosc[1] = sqrt(odl_XY[1]);
+    odleglosc[2] = sqrt(odl_XY[2]);
     
     dron=drony[numer]->Promien_drona();
     spr1 = dron + promien_bryla[0];
     spr2 = dron + promien_bryla[1];
     spr3 = dron + promien_bryla[2];
-
     
     std::cout << dron << std::endl;
     std::cout << spr1 << std::endl;
     std::cout << spr2 << std::endl;
     std::cout << spr3 << std::endl;
+    std::cout << srodek_d[0] << std::endl;
+    std::cout << srodek_d[1] << std::endl;
+    std::cout << odleglosc[0] <<std::endl;
+    std::cout << odleglosc[1] <<std::endl;
+    std::cout << odleglosc[2] <<std::endl;
+
+    if(spr1>odleglosc[0])// && spr2>odleglosc[1] && spr3>odleglosc[2])
+    {std::cout << "Kolizja z przeszkoda 1!" << std::endl;}
+    else
+    {std::cout << "Brak kolizji z przeszkoda 1." << std::endl;}
+    if(spr2>odleglosc[1])
+    {std::cout << "Kolizja z przeszkoda 2!" << std::endl;}
+    else
+    {std::cout << "Brak kolizji z przeszkoda 2." << std::endl;}
+    if(spr3>odleglosc[2])
+    {std::cout << "Kolizja z przeszkoda 3!" << std::endl;}
+    else
+    {std::cout << "Brak kolizji z przeszkoda 3." << std::endl;}
+
 
 
 }

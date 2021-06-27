@@ -17,8 +17,9 @@ class Dron {
     Prostopadloscian *korpus;
     Wektor3D droga;
     Macierz3x3 obrot;
-    double promien;     //przechowuje promien drona
-    double wymiary[2];  //przechowuje wymiery x,y drona
+    double promien;         //przechowuje promien drona
+    double wymiary[2];      //przechowuje wymiery x,y drona
+    double wspolrzedne[2];  //przechowuje wspolrzedne drona po dokonaniu ruchu
     double kat;
     int id;
     char os;
@@ -58,6 +59,12 @@ class Dron {
     * \brief Metoda odpowiada za rysowanie trasy Drona
     */
     void Trasa(double kat, double droga);
+
+    /*!
+    * \brief Metoda odpowiada za zwrocenie wsporzednych aktywnego Drona
+    */
+    double Wspolrzedna_X();
+    double Wspolrzedna_Y();
 
     /*!
     * \brief Metoda odpowiada za wyliczenie promienia Drona

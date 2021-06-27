@@ -110,7 +110,7 @@ int main() {
       }
       case 'k':
       {
-        cout<<"\n Koniec dzialania programu.\n"<<endl;
+        cout<<"\n Koniec dzialania programu Dragonfly\n"<<endl;
         break;
       }
       default:

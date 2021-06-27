@@ -61,7 +61,7 @@ bool Scena::Wybor_drona()
         if(numer==2)
         {
             std::cout << "    1 - Polozenie " << std::endl;
-            std::cout << "    2 - Polozenie     <-- Dron aktywny " << std::endl;
+            std::cout << "    2 - Polozenie     <-- Dron aktywny" << std::endl;
         }
     }
     else
@@ -80,6 +80,7 @@ void Scena::Steruj_dronem()
     numer = this->numer-1;
     double droga;
     double kat;
+    double przedluz = 2*drony[numer]->Promien_drona();  //przedluzenie lotu o dwukrotnosc promienia drona
     std::cout << "  Podaj kierunek lotu (kat w stopniach)> ";
     std::cin >> kat;
     std::cout << "\t\t     Podaj dlugosc lotu> ";
@@ -111,7 +112,18 @@ void Scena::Steruj_dronem()
         drony[numer]->Zapisz_do_pliku();
         Lacze.Rysuj();
     }
-    Czy_kolizja();
+    while(Czy_kolizja() == true)
+    {
+        drony[numer]->Trasa(kat, przedluz);
+        std::cout << "  Lot zostal wydluzony." << std::endl;
+        std::cout << "  Poszukiwanie wolnego ladowiska." << std::endl << std::endl;
+        for(int i=0; i<przedluz; i++)
+        {
+            drony[numer]->Przesuniecie(1, kat);
+            drony[numer]->Zapisz_do_pliku();
+            Lacze.Rysuj();
+        }
+    }
     std::cout << "  Opadanie ..." << std::endl << std::endl;
     for(int i=0; i<200; i++)
     {
@@ -121,6 +133,8 @@ void Scena::Steruj_dronem()
     }
     Lacze.UsunOstatniaNazwe();
     Lacze.Rysuj();
+    std::cout << "  Polozenie Drona aktywnego (x,y):  " << drony[numer]->Wspolrzedna_X()
+              << " " << drony[numer]->Wspolrzedna_Y() << std::endl << std::endl;
 }
 
 /*!
@@ -206,7 +220,7 @@ void Scena::Dodaj_przeszkode()
 *  i zwraca true lub false. 
 *  Promien = przekatna bryly + zapas (5.0)
 */
-void Scena::Czy_kolizja()
+bool Scena::Czy_kolizja()
 {
     double dron;             //zmienne do przechowania promienia aktywnego drona
     double spr1, spr2, spr3; //zmienne pomocnicze do liczenia sumy promieni bryly i drona
@@ -228,32 +242,29 @@ void Scena::Czy_kolizja()
     spr1 = dron + promien_bryla[0];
     spr2 = dron + promien_bryla[1];
     spr3 = dron + promien_bryla[2];
-    
-    std::cout << dron << std::endl;
-    std::cout << spr1 << std::endl;
-    std::cout << spr2 << std::endl;
-    std::cout << spr3 << std::endl;
-    std::cout << srodek_d[0] << std::endl;
-    std::cout << srodek_d[1] << std::endl;
-    std::cout << odleglosc[0] <<std::endl;
-    std::cout << odleglosc[1] <<std::endl;
-    std::cout << odleglosc[2] <<std::endl;
 
-    if(spr1>odleglosc[0])// && spr2>odleglosc[1] && spr3>odleglosc[2])
-    {std::cout << "Kolizja z przeszkoda 1!" << std::endl;}
+    if(spr1>odleglosc[0])
+    {
+        std::cout << " :(  Ladawisko niedostepne!" << std::endl;
+        std::cout << " :(  Wykryto element powierzchni typu: GoraZOstrymSzczytem" << std::endl << std::endl;
+        return true;
+    }
+    else if(spr2>odleglosc[1])
+    {
+        std::cout << " :(  Ladawisko niedostepne!" << std::endl;
+        std::cout << " :(  Wykryto element powierzchni typu: GoraZDlugaGrania" << std::endl << std::endl;
+        return true;
+    }
+    else if(spr3>odleglosc[2])
+    {
+        std::cout << " :(  Ladawisko niedostepne!" << std::endl;
+        std::cout << " :(  Wykryto element powierzchni typu: Plaskowyz" << std::endl << std::endl;
+        return true;
+    }
     else
-    {std::cout << "Brak kolizji z przeszkoda 1." << std::endl;}
-    if(spr2>odleglosc[1])
-    {std::cout << "Kolizja z przeszkoda 2!" << std::endl;}
-    else
-    {std::cout << "Brak kolizji z przeszkoda 2." << std::endl;}
-    if(spr3>odleglosc[2])
-    {std::cout << "Kolizja z przeszkoda 3!" << std::endl;}
-    else
-    {std::cout << "Brak kolizji z przeszkoda 3." << std::endl;}
-
-
-
+    {
+        return false;
+    }
 }
 
 /*!

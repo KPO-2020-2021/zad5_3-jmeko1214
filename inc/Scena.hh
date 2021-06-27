@@ -60,7 +60,7 @@ class Scena {
 /*!
 * \brief Metoda odpowiada za sprawdzenie czy jest kolizja
 */
-    void Czy_kolizja();
+    bool Czy_kolizja();
 
 /*!
  * \brief Destruktor, usuwa dno oraz drony

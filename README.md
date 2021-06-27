@@ -1,4 +1,9 @@
 
+## Faza 3, dodanie sprawdzania kolizji
+
+W tej fazie drona udalo mi sie zrealizowac sprawdzanie czy kolizja drona z przeszkoda w miejscu potencjalnego ladawania. Sprawdzenie polega na policzeniu promienia drona oraz policzenia promienia stworzonej przeszkody. Oba promienie sa zwiekszone o 5 w celu zachowania bezpiecznego dystansu. Minusem mojej metody sprawdzania Czy_kolizja() jest to, ze gdy przeszkoda (lub po zmienieniu wymiarow drona) ma jeden bok podstawy o wiele dluzszy od drugiego (wydluzony prostokat) to wtedy promien wyraznie wystaje poza przeszkode przez co funkcja (mimo ze widac ze jest wystarczajaca duzo miejsca) wykrywa kolizje i leci dronem dalej o dlugosc podwojnego promienia drona. Druga sprawa to w chwili wykrycia kolizji, rysuje sie nowa trasa lotu ale rozpoczyna rysowanie od aktualnego polozenia drona (zaczyna rysowac od plaszczyzny a nie od miejsca startu drona). Po dokonaniu ruchu drona dodalem wyswietlanie informacji o polozeniu aktywnego drona (miejsce ladawania ostatnio uzywanego drona). Niestety nie udalo mi sie zamknac rysowanych figur, tzn. drony i plaskowyz posiadaja tylko sciany boczne, a gora_z_grania nie posiada dwoch bocznych scian.
+
+
 ## Building
 
 Build by making a build directory (i.e. `build/`), run `cmake` in that dir, and then use `make` to build the desired target.
